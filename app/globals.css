@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Arial", sans-serif; /* Mengubah font default */
+  background-color: #222831; /* gradien dari gray-300 ke yellow-400 */
+  position: relative; /* Posisi relatif */
+  z-index: 7; /* Z-index 10 */
+}
+
+/* Membatasi lebar kotak anime */
+.kotak {
+  margin: 1rem;
+  max-width: 800px; /* Batas lebar kotak */
+  background-color: rgba(254, 254, 254, 0.486); /* Warna latar belakang putih */
+  border-radius: 3px; /* Menambahkan sudut membulat lebih besar */
+  padding: 2rem; /* Menambahkan padding di dalam kotak */
+  transition: transform 0.2s, box-shadow 0.2s; /* Transisi untuk hover */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Bayangan */
+}
+
+/* Menambahkan gaya tambahan untuk gambar */
+.kotak img {
+  width: 100%;
+  height: auto; /* Memastikan gambar responsif */
+  border-radius: 8px; /* Menambahkan sudut membulat pada gambar */
+}
+
+/* Menambahkan margin pada judul */
+.kotak h3 {
+  margin-bottom: 1rem; /* Jarak di bawah judul */
+  font-size: 1.25rem; /* Ukuran font judul lebih besar */
+  color: #2d3748; /* Warna teks judul */
+}
+
+/* Menambahkan gaya untuk teks */
+.kotak p {
+  font-size: 0.875rem; /* Ukuran font lebih kecil */
+  font-weight: normal; /* Mengubah dari bold untuk variasi */
+  margin-top: 0.5rem; /* Jarak atas */
+  color: #4a5568; /* Warna teks */
+}
