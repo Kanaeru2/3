@@ -14,11 +14,11 @@ body {
 
 /* Membatasi lebar kotak anime */
 .kotak {
-  margin: 1rem;
+  margin: 0rem;
   max-width: 800px; /* Batas lebar kotak */
   background-color: rgba(254, 254, 254, 0.486); /* Warna latar belakang putih */
   border-radius: 3px; /* Menambahkan sudut membulat lebih besar */
-  padding: 2rem; /* Menambahkan padding di dalam kotak */
+  padding: 1rem; /* Menambahkan padding di dalam kotak */
   transition: transform 0.2s, box-shadow 0.2s; /* Transisi untuk hover */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Bayangan */
 }

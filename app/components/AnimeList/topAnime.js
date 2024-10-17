@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 
 const AnimeList = ({ title, images, uuid, id }) => {
@@ -10,9 +11,9 @@ const AnimeList = ({ title, images, uuid, id }) => {
           <div className="relative overflow-hidden mb-2">
             <Image
               src={images}
-              className="w-32 h-auto transition-transform transform hover:scale-105"
-              width={200}
-              height={200}
+              className="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 transition-transform transform hover:scale-105"
+              width={400}
+              height={300}
               alt={title}
             />
           </div>

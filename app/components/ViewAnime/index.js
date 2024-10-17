@@ -1,64 +1,72 @@
-const View = ({ animeData }) => {
-  if (!animeData) {
-    return <p className="flex justify-center">Data tidak ditemukan.</p>; // Handle case when no data is available
-  }
+
+"use client";
+
+import React, { useState } from 'react';
+
+const MenuDesktop = () => {
+  return (
+    <div className="bg-primary w-[270px] h-screen hidden md:flex items-center justify-center">
+      <a
+        href="#"
+        className="inline-block w-24 h-8 border border-gray-300 rounded-md text-center leading-8 text-black no-underline hover:bg-gray-200"
+      >
+        Menu Desu
+      </a>
+    </div>
+  );
+};
+
+const MenuMobile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="bg-primary p-4 max-w-4xl mx-auto">
-      {/* Trailer */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold">Trailer</h3>
-        <iframe
-          width="100%" // Make trailer fully responsive
-          height="400"
-          src={animeData.trailer.embed_url}
-          title={`${animeData.title} Trailer`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          aria-label={`Trailer for ${animeData.title}`} // Descriptive aria-label for accessibility
-        ></iframe>
-      </div>
+    <div className="md:hidden">
+      <button
+        onClick={toggleMenu}
+        className="fixed bottom-4 right-4 rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700"
+        type="button"
+      >
+        Open Menu
+      </button>
 
-      {/* Gambar dan Detail Anime */}
-      <div className="flex flex-col md:flex-row">
-        <img
-          src={animeData.images.jpg.image_url}
-          alt={animeData.title}
-          className="rounded-lg mb-4 md:mr-4 w-full max-w-[350px] max-h-[200px] object-cover" // Responsive image
-        />
-        <div className="flex flex-col">
-          <h1 className="text-2xl font-bold mt-2">
-            <strong>{animeData.title}</strong>
-          </h1>
-          <h2 className="text-lg text-gray-600">
-            {animeData.title_english} ({animeData.title_japanese})
-          </h2>
-          <p className="mt-2">{animeData.synopsis}</p>
-
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold">Detail Anime</h3>
-            <p>
-              <strong>Status:</strong> {animeData.status}
-            </p>
-            <p>
-              <strong>Episodes:</strong> {animeData.episodes}
-            </p>
-            <p>
-              <strong>Duration:</strong> {animeData.duration}
-            </p>
-            <p>
-              <strong>Rating:</strong> {animeData.rating}
-            </p>
-            <p>
-              <strong>Score:</strong> {animeData.score} (Scored by{" "}
-              {animeData.scored_by} users)
-            </p>
-          </div>
-        </div>
+      {/* Menu Mobile */}
+      <div
+        className={`fixed top-0 right-0 w-[270px] h-screen bg-white border border-slate-200 shadow-lg transition-transform duration-300 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        style={{ zIndex: 30 }} // Pastikan menu berada di atas elemen lain
+      >
+        <button onClick={toggleMenu} className="p-4 text-left text-slate-800">
+          Close
+        </button>
+        <ul className="p-4">
+          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
+            Menu Item 1
+          </li>
+          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
+            Menu Item 2
+          </li>
+          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
+            Menu Item 3
+          </li>
+        </ul>
       </div>
     </div>
   );
 };
 
-export default View;
+const Menus = () => {
+  return (
+    <div>
+      <MenuDesktop />
+      <MenuMobile />
+    </div>
+  );
+};
+
+export default Menus;
+

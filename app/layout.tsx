@@ -25,7 +25,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex flex-grow">
             <main className="flex-grow p-4">{children}</main>
-            <Menus />
+            <Menus className='fixed'/>
           </div>
         </div>
         <Footer />
