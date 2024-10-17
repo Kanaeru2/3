@@ -6,7 +6,7 @@ import Navbar from "@/app/components/Navbar/index.js"; // Pastikan path ini sesu
 const inter = Inter({ subsets: ["latin"] });
 import Footer from "@/app/components/Footer/index.js";
 
-import Menu from "@/app/components/Menu /index.js"; // Perbaiki jalur impor (hapus spasi)
+import Menu from "@/app/components/Menu/index.js"; // Perbaiki jalur impor (hapus spasi)
 
 export const metadata: Metadata = {
   title: "KanaeruMyAnimeList",
