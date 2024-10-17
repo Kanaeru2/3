@@ -6,7 +6,7 @@ import Navbar from "@/app/components/Navbar/index.js"; // Pastikan path ini sesu
 const inter = Inter({ subsets: ["latin"] });
 import Footer from "@/app/components/Footer/index.js";
 
-import Menu from "@/app/components/Menu/index.js"; // Perbaiki jalur impor (hapus spasi)
+import Menus from "@/app/components/Menu/index.js"; // Perbaiki jalur impor (hapus spasi)
 
 export const metadata: Metadata = {
   title: "KanaeruMyAnimeList",
@@ -25,7 +25,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex flex-grow">
             <main className="flex-grow p-4">{children}</main>
-            <Menu />
+            <Menus />
           </div>
         </div>
         <Footer />
