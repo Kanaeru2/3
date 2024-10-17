@@ -54,7 +54,7 @@ const Navbar = () => {
 
         {/* Form Pencarian untuk Mobile */}
         {searchVisible && (
-          <div className="md:hidden p-4 bg-white shadow-lg">
+          <div className="md:hidden fixed top-0 left-0 right-0 p-4 bg-white shadow-lg z-50">
             <form onSubmit={handleSearch} className="flex items-center">
               <input
                 type="text"
@@ -64,13 +64,13 @@ const Navbar = () => {
                 placeholder="Cari Anime Apa..."
                 required
               />
-              <button
-                type="button"
-                onClick={() => setSearchVisible(false)}
-                className="absolute right-12 text-gray-500 hover:text-gray-700"
-              >
-                <X size={24} />
-              </button>
+            <button
+              type="button"
+              onClick={() => setSearchVisible(false)}
+              className="absolute left-5 text-gray-500 hover:text-gray-700">
+             <X size={24} />
+            </button>
+
               <button
                 type="submit"
                 className="p-2.5 ml-1 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
@@ -85,7 +85,7 @@ const Navbar = () => {
       {/* Overlay untuk mencegah interaksi di luar form pencarian */}
       {searchVisible && (
         <div
-          className="fixed inset-0 bg-black opacity-50"
+          className="fixed inset-0 bg-black opacity-50 z-40"
           onClick={() => setSearchVisible(false)}
         ></div>
       )}
