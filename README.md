@@ -1,3 +1,6 @@
+
+![GitHub Logo](https://i.gzn.jp/img/2024/05/01/sawaratsuki-kawaii-logo/sawaratsuki_kawaii_uwu_logo_06_m.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
