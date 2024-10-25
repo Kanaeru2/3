@@ -1,72 +1,84 @@
+// components/ViewAnime/index.js
 
-"use client";
+import React from 'react';
 
-import React, { useState } from 'react';
+const ViewAnime = ({ animeData }) => {
+  const containerStyle = {
+    padding: '20px',
+    maxWidth: '600px',
+    margin: 'auto',
+    background: `url(${animeData.background}) no-repeat center center/cover`,
+    borderRadius: '8px',
+    color: 'white',
+  };
 
-const MenuDesktop = () => {
-  return (
-    <div className="bg-primary w-[270px] h-screen hidden md:flex items-center justify-center">
-      <a
-        href="#"
-        className="inline-block w-24 h-8 border border-gray-300 rounded-md text-center leading-8 text-black no-underline hover:bg-gray-200"
-      >
-        Menu Desu
-      </a>
-    </div>
-  );
-};
+  const titleStyle = {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+    margin: '10px 0',
+  };
 
-const MenuMobile = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const imgStyle = {
+    maxWidth: '100%',
+    borderRadius: '8px',
+    display: 'block',
+    margin: '0 auto',
+  };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const detailsStyle = {
+    marginTop: '15px',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: '10px',
+    borderRadius: '8px',
+  };
+
+  const trailerContainerStyle = {
+    marginBottom: '20px',
+  };
+
+  const headerContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   };
 
   return (
-    <div className="md:hidden">
-      <button
-        onClick={toggleMenu}
-        className="fixed bottom-4 right-4 rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700"
-        type="button"
-      >
-        Open Menu
-      </button>
+    <div style={containerStyle}>
+      {animeData.trailer && (
+        <div style={trailerContainerStyle}>
+          <h2>Trailer</h2>
+          <iframe
+            width="100%"
+            height="315"
+            src={animeData.trailer.embed_url}
+            title={`${animeData.title} Trailer`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
 
-      {/* Menu Mobile */}
-      <div
-        className={`fixed top-0 right-0 w-[270px] h-screen bg-white border border-slate-200 shadow-lg transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{ zIndex: 30 }} // Pastikan menu berada di atas elemen lain
-      >
-        <button onClick={toggleMenu} className="p-4 text-left text-slate-800">
-          Close
-        </button>
-        <ul className="p-4">
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 1
-          </li>
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 2
-          </li>
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 3
-          </li>
-        </ul>
+      <div style={headerContainerStyle}>
+        <h1 style={titleStyle}>{animeData.title}</h1>
+        <img src={animeData.images.jpg.large_image_url} alt={animeData.title} style={imgStyle} />
+      </div>
+
+      <div style={detailsStyle}>
+        <p><strong>Genres:</strong> {animeData.genres.map(genre => <a href={genre.url} key={genre.mal_id} style={{ color: 'lightblue' }}>{genre.name}</a>).reduce((prev, curr) => [prev, ', ', curr])}</p>
+        <p><strong>Rating:</strong> {animeData.rating}</p>
+        <p><strong>Duration:</strong> {animeData.duration}</p>
+        <p><strong>Status:</strong> {animeData.status}</p>
+        <p><strong>Aired:</strong> {animeData.aired.string}</p>
+        <p><strong>Synopsis:</strong> {animeData.synopsis}</p>
+        <p><strong>Studios:</strong> {animeData.studios.map(studio => <a href={studio.url} key={studio.mal_id} style={{ color: 'lightblue' }}>{studio.name}</a>).reduce((prev, curr) => [prev, ', ', curr])}</p>
+        <p><strong>Score:</strong> {animeData.score} ({animeData.scored_by} votes)</p>
+        <p><strong>Favorites:</strong> {animeData.favorites}</p>
       </div>
     </div>
   );
 };
 
-const Menus = () => {
-  return (
-    <div>
-      <MenuDesktop />
-      <MenuMobile />
-    </div>
-  );
-};
-
-export default Menus;
-
+export default ViewAnime;
