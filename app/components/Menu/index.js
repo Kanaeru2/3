@@ -1,72 +1,58 @@
-
-"use client";
-
+'use client';
 import React, { useState } from 'react';
-
-const MenuDesktop = () => {
-  return (
-    <div className="bg-primary w-[270px] h-screen hidden md:flex items-center justify-center">
-      <a
-        href="#"
-        className="inline-block w-24 h-8 border border-gray-300 rounded-md text-center leading-8 text-black no-underline hover:bg-gray-200"
-      >
-        Menu Desu
-      </a>
-    </div>
-  );
-};
-
-const MenuMobile = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <div className="md:hidden">
-      <button
-        onClick={toggleMenu}
-        className="fixed bottom-4 right-4 rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700"
-        type="button"
-      >
-        Open Menu
-      </button>
-
-      {/* Menu Mobile */}
-      <div
-        className={`fixed top-0 right-0 w-[270px] h-screen bg-white border border-slate-200 shadow-lg transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{ zIndex: 30 }} // Pastikan menu berada di atas elemen lain
-      >
-        <button onClick={toggleMenu} className="p-4 text-left text-slate-800">
-          Close
-        </button>
-        <ul className="p-4">
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 1
-          </li>
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 2
-          </li>
-          <li className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100">
-            Menu Item 3
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
+import GenreAnime from '../GenreAnime'; // Pastikan path-nya benar
 
 const Menus = () => {
-  return (
-    <div>
-      <MenuDesktop />
-      <MenuMobile />
-    </div>
-  );
+    const [isOpen, setIsOpen] = useState(false); // Untuk menu mobile
+
+    // Menu Desktop
+    const MenuDesktop = () => (
+        <div className="bg-primary w-[270px] h-screen hidden md:flex flex-col items-start p-4 border-b border-gray-700">
+            <h2 className="text-black mb-4 text-lg font-bold p-2 rounded">Genre</h2>
+            <div className="border-t border-gray-300 w-full mb-4" /> {/* Border Atas */}
+            <GenreAnime /> {/* Menggunakan GenreAnime untuk menampilkan genre */}
+            <div className="border-b border-gray-600 w-full mt-4" /> {/* Border Bawah */}
+        </div>
+        // End genre
+    );
+
+    // Menu Mobile
+    const MenuMobile = () => (
+        <div className="md:hidden">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="fixed bottom-4 right-4 rounded-md bg-slate-800 py-2 px-4 text-white"
+                type="button"
+            >
+                {isOpen ? 'Close Menu' : 'Open Menu'}
+            </button>
+
+            <div
+                className={`fixed top-0 right-0 w-[270px] h-screen bg-white border shadow-lg transition-transform duration-300 ${
+                    isOpen ? 'translate-x-0' : 'translate-x-full'
+                }`}
+            >
+                <button onClick={() => setIsOpen(false)} className="p-4 text-left text-slate-800">
+                    Close
+                </button>
+                <div className="border-t border-gray-600 w-full mb-4" /> {/* Border Atas */}
+                <ul className="p-4 space-y-2">
+                    <h2 className="text-black mb-4 text-lg font-bold bg-gray-200 p-2 rounded">Genre</h2>
+                    <GenreAnime /> {/* Menggunakan GenreAnime untuk menampilkan genre */}
+                </ul>
+                <div className="border-b border-gray-600 w-full mt-4" /> {/* Border Bawah */}
+            </div>
+        </div>
+        // End menu mobile
+    );
+
+    return (
+        <div className="flex">
+            <MenuDesktop />
+            <MenuMobile />
+            {/* Tambahkan konten halaman jika diperlukan */}
+        </div>
+    );
 };
 
 export default Menus;
-
