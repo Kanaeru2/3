@@ -3,7 +3,9 @@ import Image from "next/image";
 
 const AnimeList = ({ title, images, uuid, id }) => {
   return (
-    <a href={`/view/${uuid}?id=${id}`}>
+    <a href={`/view/${uuid}?id=${id}`}
+    target="_blank" 
+    rel="noopener noreferrer">
       {/* Menggunakan UUID di URL dan mal_id sebagai query */}
       <div className="text-center md:text-left box">
         {/* Container untuk setiap item */}
