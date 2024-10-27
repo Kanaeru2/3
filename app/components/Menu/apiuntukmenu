@@ -1,0 +1,34 @@
+# URL untuk Genre Populer
+# Action
+https://api.jikan.moe/v4/anime?genre=1
+
+# Sci-Fi
+https://api.jikan.moe/v4/anime?genre=24
+
+# Award Winning
+https://api.jikan.moe/v4/anime?genre=46
+
+# URL untuk Status
+# Finished Airing
+https://api.jikan.moe/v4/anime?status=finished
+
+# Ongoing
+https://api.jikan.moe/v4/anime?status=ongoing
+
+# Upcoming
+https://api.jikan.moe/v4/anime?status=upcoming
+
+# URL untuk Rating
+# R - 17+ (violence & profanity)
+https://api.jikan.moe/v4/anime?rating=R-17+
+
+# PG - 13 (violence & profanity)
+https://api.jikan.moe/v4/anime?rating=PG-13
+
+# URL untuk Kategori Populer
+# Top Rated
+https://api.jikan.moe/v4/anime?sort=score
+
+# Popular
+https://api.jikan.moe/v4/anime?sort=popular
+
