@@ -6,21 +6,6 @@ const Menus = () => {
     const [isOpen, setIsOpen] = useState(false); // Untuk menu mobile
     const [genres, setGenres] = useState([]); // Untuk menyimpan genre
 
-    // Ambil genre dari API
-    useEffect(() => {
-        const fetchGenres = async () => {
-            try {
-                const response = await fetch('https://api.jikan.moe/v4/genres/anime'); // Endpoint untuk genre
-                const data = await response.json();
-                setGenres(data.data); // Menyimpan data genre
-            } catch (error) {
-                console.error('Error fetching genres:', error);
-            }
-        };
-
-        fetchGenres();
-    }, []);
-
     // Menu Desktop
     const MenuDesktop = () => (
         <div className="bg-primary w-[270px] h-screen hidden md:flex flex-col items-start p-4 border-b border-gray-700">

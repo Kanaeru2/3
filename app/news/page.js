@@ -8,11 +8,13 @@ import News from "@/app/components/AnimeList/news.js";
 const NEWS = () => {
   const [latestAnimeData, setLatestAnimeData] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // State untuk loading
+  const [showLoading, setShowLoading] = useState(true); // State untuk kontrol loading
 
   useEffect(() => {
     const fetchAnimeData = async () => {
-      setLoading(true); // Set loading menjadi true saat mulai fetch data
+      // Tambahkan jeda sebelum pengambilan data
+      await new Promise(resolve => setTimeout(resolve, 4000)); // Jeda 4 detik
+
       try {
         const response = await axios.get(
           "https://api.jikan.moe/v4/top/anime?limit=20"
@@ -43,16 +45,12 @@ const NEWS = () => {
       } catch (err) {
         setError(`Terjadi kesalahan saat mengambil data: ${err.message}`);
       } finally {
-        setLoading(false); // Set loading menjadi false setelah selesai fetch data
+        setShowLoading(false); // Menghilangkan loading setelah pengambilan data selesai
       }
     };
 
     fetchAnimeData();
   }, []);
-
-  if (loading) {
-    return <p className="text-center bg-primary">Loading...</p>; // Tampilkan pesan loading
-  }
 
   if (error) {
     return <p className="text-center">{error}</p>; // Menangani kesalahan
@@ -60,11 +58,15 @@ const NEWS = () => {
 
   return (
     <>
-      <div className="kotak flex flex-wrap gap-4 p-4">
-        <section>
-          <News animeData={latestAnimeData} />
-        </section>
-      </div>
+      {showLoading ? (
+        <p className="text-center bg-primary">Loading...</p> // Spinner loading
+      ) : (
+        <div className="kotak flex flex-wrap gap-4 p-4">
+          <section>
+            <News animeData={latestAnimeData} />
+          </section>
+        </div>
+      )}
     </>
   );
 };

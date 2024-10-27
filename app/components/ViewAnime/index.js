@@ -44,23 +44,29 @@ const ViewAnime = ({ animeData }) => {
     alignItems: 'center',
   };
 
+  // Conditionally render trailer
+  const trailer = animeData.trailer && animeData.trailer.embed_url ? (
+    <div style={trailerContainerStyle}>
+      <h2>Trailer</h2>
+      <iframe
+        width="100%"
+        height="315"
+        src={animeData.trailer.embed_url}
+        title={`${animeData.title} Trailer`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    </div>
+  ) : (
+    <div style={trailerContainerStyle}>
+      <h2>{animeData.trailer ? "Trailer Available" : "No Trailer Available"}</h2>
+    </div>
+  );
+
   return (
     <div style={containerStyle}>
-      {animeData.trailer && (
-        <div style={trailerContainerStyle}>
-          <h2>Trailer</h2>
-          <iframe
-            width="100%"
-            height="315"
-            src={animeData.trailer.embed_url}
-            title={`${animeData.title} Trailer`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      )}
-
+      {trailer}
       <div style={headerContainerStyle}>
         <h1 style={titleStyle}>{animeData.title}</h1>
         <img src={animeData.images.jpg.large_image_url} alt={animeData.title} style={imgStyle} />
@@ -73,7 +79,7 @@ const ViewAnime = ({ animeData }) => {
         <p><strong>Status:</strong> {animeData.status}</p>
         <p><strong>Aired:</strong> {animeData.aired.string}</p>
         <p><strong>Synopsis:</strong> {animeData.synopsis}</p>
-        <p><strong>Studios:</strong> {animeData.studios.map(studio => <a href={studio.url} key={studio.mal_id} style={{ color: 'lightblue' }}>{studio.name}</a>).reduce((prev, curr) => [prev, ', ', curr])}</p>
+        <p><strong>Studios:</strong> {animeData.studios.map(studio => <a href={studio.url} key={studio.mal_id} style={{ color: 'lightblue' }}>{studio.name}</a>).join(', ')}</p>
         <p><strong>Score:</strong> {animeData.score} ({animeData.scored_by} votes)</p>
         <p><strong>Favorites:</strong> {animeData.favorites}</p>
       </div>
@@ -82,3 +88,4 @@ const ViewAnime = ({ animeData }) => {
 };
 
 export default ViewAnime;
+

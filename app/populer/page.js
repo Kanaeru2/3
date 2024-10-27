@@ -2,17 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AnimeList from "@/app/components/AnimeList/topAnime.js";
 import { v4 as uuidv4 } from "uuid"; // Import UUID
+import AnimeList from "@/app/components/AnimeList/topAnime.js";
 
 const Populer = () => {
   const [animeData, setAnimeData] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // State untuk loading
+  const [showLoading, setShowLoading] = useState(true); // State untuk kontrol loading
 
   useEffect(() => {
     const fetchAnimeData = async () => {
-      setLoading(true); // Set loading menjadi true saat mulai fetch data
+      // Tambahkan jeda sebelum pengambilan data
+      await new Promise(resolve => setTimeout(resolve, 4000)); // Jeda 4 detik
+
       try {
         const response = await axios.get(
           "https://api.jikan.moe/v4/top/anime?limit=20"
@@ -31,19 +33,16 @@ const Populer = () => {
         }));
 
         setAnimeData(animeWithUUID); // Set anime data with UUIDs
+
+        // Menghilangkan loading setelah data siap
+        setShowLoading(false);
       } catch (err) {
         setError(`Terjadi kesalahan saat mengambil data: ${err.message}`);
-      } finally {
-        setLoading(false); // Set loading menjadi false setelah selesai fetch data
       }
     };
 
     fetchAnimeData();
   }, []);
-
-  if (loading) {
-    return <p className="text-center bg-primary">Loading...</p>; // Tampilkan pesan loading
-  }
 
   if (error) {
     return <p className="text-center">{error}</p>; // Menangani kesalahan
@@ -51,17 +50,21 @@ const Populer = () => {
 
   return (
     <>
-      <div className="kotak grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-        {animeData.map((data) => (
-          <AnimeList
-            key={data.uuid}
-            title={data.title}
-            images={data.images.webp.image_url}
-            uuid={data.uuid}
-            id={data.mal_id}
-          />
-        ))}
-      </div>
+      {showLoading ? (
+        <p className="text-center bg-primary">Loading...</p> // Spinner loading
+      ) : (
+        <div className="kotak grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          {animeData.map((data) => (
+            <AnimeList
+              key={data.uuid}
+              title={data.title}
+              images={data.images.webp.image_url}
+              uuid={data.uuid}
+              id={data.mal_id}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 };

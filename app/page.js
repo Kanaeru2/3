@@ -7,17 +7,15 @@ import AnimeList from "@/app/components/AnimeList/topAnime.js";
 import News from "@/app/components/AnimeList/news.js";
 import Header from "@/app/components/AnimeList/Header";
 import Footer from "@/app/components/Footer/index.js";
-import NEWS from "@/app/news/page.js";
 
 const Home = () => {
   const [animeData, setAnimeData] = useState([]);
   const [latestAnimeData, setLatestAnimeData] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // State untuk loading
+  const [showLoading, setShowLoading] = useState(true); // Untuk mengontrol tampilan loading
 
   useEffect(() => {
     const fetchAnimeData = async () => {
-      setLoading(true); // Set loading menjadi true saat mulai fetch data
       try {
         const response = await axios.get(
           "https://api.jikan.moe/v4/top/anime?limit=10"
@@ -44,7 +42,8 @@ const Home = () => {
                 `https://api.jikan.moe/v4/anime/${data.mal_id}/news`
               );
               return newsResponse.data.data.slice(0, 2);
-            } catch {
+            } catch (error) {
+              console.error("Gagal mengambil berita:", error);
               return null;
             }
           });
@@ -53,17 +52,17 @@ const Home = () => {
         setLatestAnimeData(latestAnimeResults.filter((data) => data !== null));
       } catch (err) {
         setError("Terjadi kesalahan saat mengambil data");
+        console.error("Kesalahan saat mengambil data:", err);
       } finally {
-        setLoading(false); // Set loading menjadi false setelah selesai fetch data
+        // Mengatur waktu tampilan loading sebelum menampilkan data
+        setTimeout(() => {
+          setShowLoading(false);
+        }, 4000); // Menampilkan loading selama 4 detik
       }
     };
 
     fetchAnimeData();
   }, []);
-
-  if (loading) {
-    return <p className="text-center bg-primary">Loading...</p>; // Tampilkan pesan loading
-  }
 
   if (error) {
     return <p className="text-center">{error}</p>; // Menangani kesalahan
@@ -71,6 +70,23 @@ const Home = () => {
 
   return (
     <div>
+      <style jsx>{`
+        .loading-spinner {
+          border: 4px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top: 4px solid #fff;
+          width: 40px;
+          height: 40px;
+          animation: spin 1s linear infinite;
+          margin: 0 auto; /* Center spinner */
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+
       <div className="flex flex-wrap gap-2 p-2">
         <section>
           <div className="kotak">
@@ -80,15 +96,19 @@ const Home = () => {
               linkHref="/populer"
             />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-              {animeData.map((data) => (
-                <AnimeList
-                  key={data.uuid}
-                  title={data.title}
-                  images={data.images.webp.image_url}
-                  uuid={data.uuid}
-                  id={data.mal_id}
-                />
-              ))}
+              {showLoading ? (
+                <div className="loading-spinner"></div> // Gaya loading spinner
+              ) : (
+                animeData.map((data) => (
+                  <AnimeList
+                    key={data.uuid}
+                    title={data.title}
+                    images={data.images.webp.image_url}
+                    uuid={data.uuid}
+                    id={data.mal_id}
+                  />
+                ))
+              )}
             </div>
           </div>
         </section>
